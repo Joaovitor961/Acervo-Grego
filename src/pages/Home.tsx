@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getOlympianGods } from '../api/greekApi';
 import { type BaseEntity } from '../types/myth';
@@ -76,49 +76,125 @@ export default function Home() {
         )}
 
         {!loading && !error && olympianGods.length > 0 && (
-          <div className="row">
-            {olympianGods.map((god) => (
-              <div key={god.id} className="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-                <div className="card h-100 shadow-sm">
-                  {god.image && (
-                    <img 
-                      src={god.image} 
-                      className="card-img-top" 
-                      alt={god.name}
-                      style={{ height: 200, objectFit: 'cover' }}
-                    />
-                  )}
-                  <div className="card-body d-flex flex-column">
-                    <h5 className="card-title">{god.name}</h5>
-                    <p className="card-text text-muted small mb-2">
-                      {god.attributes?.origin || 'Divindade grega'}
-                    </p>
-                    <p className="card-text flex-grow-1">
-                      {god.description 
-                        ? (god.description.length > 100 
-                            ? god.description.substring(0, 100) + '...' 
-                            : god.description)
-                        : 'Sem descrição disponível.'}
-                    </p>
-                    
-                    {/* Informações adicionais */}
-                    {god.attributes?.symbols && god.attributes.symbols.length > 0 && (
-                      <p className="card-text small mb-2">
-                        <strong>Símbolos:</strong> {god.attributes.symbols.slice(0, 3).join(', ')}
-                        {god.attributes.symbols.length > 3 && '...'}
-                      </p>
-                    )}
-                    
-                    <Link 
-                      to={`/gods/${god.id}`} 
-                      className="btn btn-sm btn-outline-primary mt-auto"
-                    >
-                      Ver Detalhes
-                    </Link>
+          <div id="olympiansCarousel" className="carousel slide" data-bs-ride="carousel">
+            {/* Indicadores */}
+            <div className="carousel-indicators">
+              {olympianGods.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  data-bs-target="#olympiansCarousel"
+                  data-bs-slide-to={index}
+                  className={index === 0 ? 'active' : ''}
+                  aria-current={index === 0 ? 'true' : undefined}
+                  aria-label={`Slide ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Slides */}
+            <div className="carousel-inner">
+              {olympianGods.map((god, index) => (
+                <div key={god.id} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+                  <div className="row justify-content-center">
+                    <div className="col-12 col-md-10 col-lg-8">
+                      <div className="card shadow-lg border-0">
+                        <div className="row g-0">
+                          {/* Imagem do Deus */}
+                          <div className="col-md-5">
+                            {god.image ? (
+                              <img 
+                                src={god.image} 
+                                className="img-fluid rounded-start w-100 h-100" 
+                                alt={god.name}
+                                style={{ objectFit: 'cover', minHeight: '400px' }}
+                              />
+                            ) : (
+                              <div 
+                                className="bg-secondary rounded-start w-100 h-100 d-flex align-items-center justify-content-center"
+                                style={{ minHeight: '400px' }}
+                              >
+                                <span className="text-white fs-1">👤</span>
+                              </div>
+                            )}
+                          </div>
+                          
+                          {/* Informações do Deus */}
+                          <div className="col-md-7">
+                            <div className="card-body p-4 p-md-5 d-flex flex-column h-100">
+                              <h3 className="card-title display-5 mb-3">{god.name}</h3>
+                              
+                              <p className="text-muted mb-3">
+                                <strong>Origem:</strong> {god.attributes?.origin || 'Divindade grega'}
+                              </p>
+                              
+                              <p className="card-text flex-grow-1 mb-4">
+                                {god.description || 'Sem descrição disponível.'}
+                              </p>
+                              
+                              {/* Símbolos */}
+                              {god.attributes?.symbols && god.attributes.symbols.length > 0 && (
+                                <div className="mb-3">
+                                  <strong className="d-block mb-2">Símbolos:</strong>
+                                  <div className="d-flex flex-wrap gap-2">
+                                    {god.attributes.symbols.slice(0, 5).map((symbol, idx) => (
+                                      <span key={idx} className="badge bg-primary-subtle text-primary-emphasis">
+                                        {symbol}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                              
+                              {/* Poderes */}
+                              {god.attributes?.powers && god.attributes.powers.length > 0 && (
+                                <div className="mb-3">
+                                  <strong className="d-block mb-2">Poderes:</strong>
+                                  <div className="d-flex flex-wrap gap-2">
+                                    {god.attributes.powers.slice(0, 4).map((power, idx) => (
+                                      <span key={idx} className="badge bg-warning-subtle text-warning-emphasis">
+                                        {power}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                              
+                              <Link 
+                                to={`/gods/${god.id}`} 
+                                className="btn btn-primary btn-lg mt-auto"
+                              >
+                                Ver Todos os Detalhes
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Controles de navegação */}
+            <button 
+              className="carousel-control-prev" 
+              type="button" 
+              data-bs-target="#olympiansCarousel" 
+              data-bs-slide="prev"
+            >
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Anterior</span>
+            </button>
+            <button 
+              className="carousel-control-next" 
+              type="button" 
+              data-bs-target="#olympiansCarousel" 
+              data-bs-slide="next"
+            >
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Próximo</span>
+            </button>
           </div>
         )}
       </section>

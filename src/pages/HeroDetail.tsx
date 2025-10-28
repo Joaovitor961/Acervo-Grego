@@ -96,16 +96,8 @@ export default function HeroDetail() {
               {attrs.family.spouse && <li><strong>Esposa/Parceiro:</strong> {attrs.family.spouse.join(', ')}</li>}
             </ul>
           ) : <p>Informações de família não disponíveis.</p>}
-
-          <h5 className="mt-3">Histórias / Referências</h5>
-          {attrs.stories && attrs.stories.length > 0 ? (
-            <ol>
-              {attrs.stories.map((s, i) => <li key={i}>{s}</li>)}
-            </ol>
-          ) : <p>Sem histórias registradas.</p>}
         </div>
       </div>
     </div>
   );
-}
-
+} 

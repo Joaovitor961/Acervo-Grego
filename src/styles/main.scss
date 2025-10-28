@@ -4,3 +4,81 @@ body {
   background: #f8f9fa;
   font-family: 'Inter', sans-serif;
 }
+
+/* Estilos do Carousel dos Olímpicos */
+#olympiansCarousel {
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 5%;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    
+    &:hover {
+      opacity: 1;
+    }
+    
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      padding: 30px;
+      transition: all 0.3s ease;
+    }
+    
+    &:hover .carousel-control-prev-icon,
+    &:hover .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.7);
+      transform: scale(1.1);
+    }
+  }
+  
+  .carousel-indicators {
+    button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin: 0 5px;
+      background-color: rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+      
+      &.active {
+        background-color: #0d6efd;
+        transform: scale(1.2);
+      }
+    }
+  }
+  
+  .carousel-item {
+    transition: transform 0.6s ease-in-out;
+    padding: 20px 0;
+  }
+  
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+    }
+  }
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  #olympiansCarousel {
+    .card {
+      .row.g-0 {
+        flex-direction: column;
+      }
+      
+      .col-md-5,
+      .col-md-7 {
+        width: 100%;
+      }
+      
+      img {
+        border-radius: 0.375rem 0.375rem 0 0 !important;
+      }
+    }
+  }
+}
