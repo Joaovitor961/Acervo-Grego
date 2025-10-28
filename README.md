@@ -86,7 +86,10 @@ acervo-grego/
 ├── src/
 │   ├── api/            # Integração com API externa
 │   │   └── greekApi.ts # Funções para buscar dados da API
-│   ├── assets/         # Imagens e recursos estáticos
+│   ├── assets/
+|   |   └── images/     # Imagens e recursos estáticos
+|   |       └── gods/           # Imagens dos Deuses
+|   |       └── heroes/         # Imagens dos Herois
 │   ├── components/     # Componentes reutilizáveis
 │   │   ├── CardItem.tsx    # Card para exibir entidades
 │   │   ├── Footer.tsx      # Rodapé da aplicação
@@ -96,11 +99,14 @@ acervo-grego/
 │   │   ├── GodDetail.tsx   # Detalhes de um deus
 │   │   ├── GodsList.tsx    # Lista de deuses
 │   │   ├── HeroesList.tsx  # Lista de heróis
+│   │   ├── HeroeDetail.tsx # Detalhes de um herói
 │   │   └── Home.tsx        # Página inicial
 │   ├── styles/         # Estilos globais SCSS
 │   │   └── main.scss
 │   ├── types/          # Definições de tipos TypeScript
 │   │   └── myth.ts     # Interfaces de entidades mitológicas
+│   ├── utils/     
+│   │   └── imageHelper.ts  # Lida com as imagens dos cards     
 │   ├── App.tsx         # Componente principal
 │   ├── main.tsx        # Ponto de entrada da aplicação
 │   └── index.css       # Estilos globais
