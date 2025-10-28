@@ -82,6 +82,27 @@ export async function getHeroes(): Promise<BaseEntity[]> {
   }));
 }
 
+/**
+ * Retorna apenas os deuses olímpicos (aqueles que vivem no Monte Olimpo)
+ */
+export async function getOlympianGods(): Promise<BaseEntity[]> {
+  const allGods = await getGods();
+  
+  // Filtra pelos deuses que têm "Mount Olympus" como abode
+  const olympians = allGods.filter(god => {
+    const abode = god.attributes?.abode;
+    if (!abode) return false;
+    
+    // Verifica se o abode contém "Mount Olympus" ou "Olympus"
+    const normalizedAbode = abode.toLowerCase();
+    return normalizedAbode.includes('mount olympus') || normalizedAbode.includes('olympus');
+  });
+  
+  console.log(`[greekApi] Deuses Olímpicos encontrados: ${olympians.length}`);
+  
+  return olympians;
+}
+
 /* Helpers para busca local */
 export async function findGodByParam(param: string): Promise<BaseEntity | undefined> {
   const all = await getGods();
