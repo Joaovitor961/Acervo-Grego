@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import GodsList from './pages/GodsList';
 import GodDetail from './pages/GodDetail';
 import HeroesList from './pages/HeroesList';
+import HeroDetail from './pages/HeroDetail';
 
 export default function App() {
   return (
@@ -17,7 +18,7 @@ export default function App() {
           <Route path="/gods" element={<GodsList />} />
           <Route path="/gods/:id" element={<GodDetail />} />
           <Route path="/heroes" element={<HeroesList />} />
-          <Route path="/heroes/:id" element={<div>Hero detail (a implementar)</div>} />
+          <Route path="/heroes/:id" element={<HeroDetail />} />
         </Routes>
       </main>
       <Footer />
