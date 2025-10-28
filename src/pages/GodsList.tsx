@@ -57,7 +57,7 @@ export default function GodsList() {
         )}
 
         {filtered.map(g => (
-          <div key={`${g.id ?? g.name}`} className="col-12 col-md-6 col-lg-4 mb-3">
+          <div key={`${g.id ?? g.name}`} className="col-12 col-md-6 col-lg-4 mb-3 card-animated">
             <div className="card h-100">
               {g.image && <img src={g.image} className="card-img-top" alt={g.name} style={{objectFit: 'cover', height: 180}} />}
               <div className="card-body d-flex flex-column">
@@ -66,8 +66,7 @@ export default function GodsList() {
                   {g.description ? (g.description.length > 150 ? g.description.slice(0, 150) + '…' : g.description) : '—'}
                 </p>
                 <div className="mt-2">
-                  <Link to={`/gods/${encodeURIComponent(String(g.id ?? g.name))}`} className="btn btn-primary btn-sm me-2">Ver</Link>
-                  <Link to={`/gods/${encodeURIComponent(encodeURIComponent(String(g.name)))}`} className="btn btn-outline-secondary btn-sm">Ver por nome</Link>
+                  <Link to={`/gods/${encodeURIComponent(String(g.id ?? g.name))}`} className="btn btn-primary btn-sm">Ver Detalhes</Link>
                 </div>
               </div>
             </div>

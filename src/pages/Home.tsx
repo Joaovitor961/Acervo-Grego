@@ -204,9 +204,9 @@ export default function Home() {
         <h2 className="mb-4">Explore o Acervo</h2>
         <div className="row">
           <div className="col-md-6 mb-3">
-            <div className="card">
+            <div className="card quick-nav-card">
               <div className="card-body">
-                <h3 className="card-title h5">Deuses</h3>
+                <h3 className="card-title h5">⚡ Deuses</h3>
                 <p className="card-text">
                   Conheça todas as divindades gregas, desde os poderosos olímpicos até 
                   os deuses primordiais e menores.
@@ -219,9 +219,9 @@ export default function Home() {
           </div>
           
           <div className="col-md-6 mb-3">
-            <div className="card">
+            <div className="card quick-nav-card">
               <div className="card-body">
-                <h3 className="card-title h5">Heróis</h3>
+                <h3 className="card-title h5">🗡️ Heróis</h3>
                 <p className="card-text">
                   Descubra os heróis lendários que realizaram feitos impossíveis e 
                   enfrentaram monstros terríveis.
