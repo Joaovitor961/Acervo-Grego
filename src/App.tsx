@@ -1,5 +1,4 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -9,10 +8,15 @@ import HeroesList from './pages/HeroesList';
 import HeroDetail from './pages/HeroDetail';
 
 export default function App() {
+  const location = useLocation();
+  
+  // Páginas de detalhes não usam container para o hero banner ir até as bordas
+  const isDetailPage = location.pathname.match(/\/(gods|heroes)\/[^/]+$/);
+  
   return (
     <div className="d-flex flex-column min-vh-100">
       <NavBar />
-      <main className="flex-fill container py-4">
+      <main className={`flex-fill ${!isDetailPage ? 'container' : ''} ${!isDetailPage ? 'py-4' : ''}`}>
         <Routes>
           <Route path="/" element={<Home />} /> 
           <Route path="/gods" element={<GodsList />} />
