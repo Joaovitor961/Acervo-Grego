@@ -1,73 +1,141 @@
-# React + TypeScript + Vite
+# 🏛️ Acervo Grego
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma aplicação web moderna e interativa para explorar a fascinante mitologia grega. Descubra informações detalhadas sobre deuses, suas histórias, poderes e relações familiares.
 
-Currently, two official plugins are available:
+## 📋 Sobre o Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O **Acervo Grego** é uma plataforma educacional que permite aos usuários navegarem por um vasto acervo da mitologia grega. Através de uma interface intuitiva e responsiva, os visitantes podem aprender sobre as divindades do Olimpo, heróis lendários e suas épicas aventuras.
 
-## React Compiler
+## ✨ Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🔍 **Busca Inteligente**: Pesquise por deuses e heróis por nome
+- 📚 **Listagem Completa**: Visualize todos os deuses e heróis catalogados
+- 📖 **Detalhes Completos**: Acesse informações detalhadas incluindo:
+  - Origem e descrição
+  - Símbolos e poderes
+  - Relações familiares (pais, irmãos, cônjuges)
+  - Histórias e mitos associados
+- 🎨 **Interface Moderna**: Design responsivo e amigável usando Bootstrap
+- ⚡ **Performance**: Carregamento rápido com Vite
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend Framework**: React 19.1
+- **Linguagem**: TypeScript 5.9
+- **Roteamento**: React Router DOM 7.9
+- **Estilização**: 
+  - Bootstrap 5.3
+  - Sass/SCSS
+- **Build Tool**: Vite 7.1
+- **Linting**: ESLint + Prettier
+- **API Externa**: [The Greek Myth API](https://thegreekmythapi.vercel.app)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📦 Pré-requisitos
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Antes de começar, você precisará ter instalado em sua máquina:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- [Node.js](https://nodejs.org/) (versão 18 ou superior)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+
+## 🚀 Instalação
+
+1. Clone o repositório:
+```bash
+git clone git@github.com:Joaovitor961/Acervo-Grego.git
+cd acervo-grego
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Instale as dependências:
+```bash
+npm install
 ```
+
+3. Inicie o servidor de desenvolvimento:
+```bash
+npm run dev
+```
+
+4. Abra seu navegador e acesse:
+```
+http://localhost:5173
+```
+
+## 📜 Scripts Disponíveis
+
+No diretório do projeto, você pode executar:
+
+### `npm run dev`
+Inicia o servidor de desenvolvimento.
+A página será recarregada automaticamente quando você fizer alterações.
+
+### `npm run build`
+Compila o TypeScript e cria a build de produção na pasta `dist`.
+A build é otimizada para melhor performance.
+
+### `npm run preview`
+Visualiza localmente a build de produção.
+
+### `npm run lint`
+Executa o ESLint para verificar problemas no código.
+
+## 📁 Estrutura do Projeto
+
+```
+acervo-grego/
+├── public/              # Arquivos públicos estáticos
+├── src/
+│   ├── api/            # Integração com API externa
+│   │   └── greekApi.ts # Funções para buscar dados da API
+│   ├── assets/         # Imagens e recursos estáticos
+│   ├── components/     # Componentes reutilizáveis
+│   │   ├── CardItem.tsx    # Card para exibir entidades
+│   │   ├── Footer.tsx      # Rodapé da aplicação
+│   │   ├── NavBar.tsx      # Barra de navegação
+│   │   └── SearchBar.tsx   # Componente de busca
+│   ├── pages/          # Páginas da aplicação
+│   │   ├── GodDetail.tsx   # Detalhes de um deus
+│   │   ├── GodsList.tsx    # Lista de deuses
+│   │   ├── HeroesList.tsx  # Lista de heróis
+│   │   └── Home.tsx        # Página inicial
+│   ├── styles/         # Estilos globais SCSS
+│   │   └── main.scss
+│   ├── types/          # Definições de tipos TypeScript
+│   │   └── myth.ts     # Interfaces de entidades mitológicas
+│   ├── App.tsx         # Componente principal
+│   ├── main.tsx        # Ponto de entrada da aplicação
+│   └── index.css       # Estilos globais
+├── index.html          # Template HTML
+├── package.json        # Dependências e scripts
+├── tsconfig.json       # Configuração TypeScript
+├── vite.config.ts      # Configuração Vite
+└── README.md          # Este arquivo
+```
+
+## 🌐 API Utilizada
+
+Este projeto consome dados da **[The Greek Myth API](https://thegreekmythapi.vercel.app/api)**, uma API pública que fornece informações sobre:
+
+- Deuses (`/gods`)
+- Heróis (`/heroes`)
+
+A integração é feita através do módulo `src/api/greekApi.ts`, que inclui:
+- Normalização automática de diferentes formatos de resposta
+- Funções de busca por ID ou nome
+- Tratamento de erros
+
+## 🎯 Rotas da Aplicação
+
+- `/gods` - Lista todos os deuses
+- `/gods/:id` - Detalhes de um deus específico
+- `/heroes` - Lista todos os heróis
+- `/heroes/:id` - Detalhes de um herói
+
+## 📝 Licença
+
+Este projeto é de código aberto e está disponível para uso educacional.
+
+## 👨‍💻 Autor
+
+Desenvolvido com ❤️ para os entusiastas da mitologia grega.
+
+---
