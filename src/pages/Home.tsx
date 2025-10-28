@@ -12,7 +12,6 @@ export default function Home() {
     setLoading(true);
     getOlympianGods()
       .then(data => {
-        console.log('[Home] Deuses Olímpicos carregados:', data.length);
         setOlympianGods(data);
       })
       .catch(err => {

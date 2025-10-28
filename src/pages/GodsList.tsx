@@ -30,7 +30,7 @@ export default function GodsList() {
       .finally(() => setLoading(false));
   }, []);
 
-  // agora cálculo direto, sem hooks extras — mantém ordem de hooks estável
+  // sem hooks extras — mantém ordem de hooks estável
   const filtered = React.useMemo(() => {
     if (!Array.isArray(gods)) return [];
     const q = query.trim().toLowerCase();

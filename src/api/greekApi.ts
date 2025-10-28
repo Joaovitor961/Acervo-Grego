@@ -3,7 +3,7 @@ import { getGodImage, getHeroImage } from '../utils/imageHelper';
 
 const BASE = 'https://thegreekmythapi.vercel.app/api';
 
-async function fetchJSON(path: string): Promise<any> {
+async function fetchJSON(path: string): Promise<unknown> {
   const res = await fetch(`${BASE}${path}`);
   if (!res.ok) {
     const text = await res.text().catch(() => '');
@@ -21,16 +21,17 @@ async function fetchJSON(path: string): Promise<any> {
  *  - { something: { ... }, something2: {...} } -> transforma em array de objects
  *  - { Key: [...] } -> quando o valor é array, retorna ele (flatten)
  */
-function normalizeToArray<T>(payload: any): T[] {
+function normalizeToArray<T>(payload: unknown): T[] {
   if (payload === null || payload === undefined) return [];
 
   if (Array.isArray(payload)) return payload as T[];
 
-  if (typeof payload === 'object') {
+  if (typeof payload === 'object' && payload !== null) {
+    const obj = payload as Record<string, unknown>;
     // casos comuns: payload.data, payload.results, payload.items
     const commonKeys = ['data', 'results', 'items', 'gods', 'Gods', 'heroes', 'Heroes', 'monsters', 'Monsters', 'titans', 'Titans'];
     for (const k of commonKeys) {
-      if (Array.isArray(payload[k])) return payload[k] as T[];
+      if (Array.isArray(obj[k])) return obj[k] as T[];
     }
 
     // se for objeto com um único campo cujo valor é array -> retorne esse array
@@ -54,32 +55,29 @@ function normalizeToArray<T>(payload: any): T[] {
 export async function getGods(): Promise<BaseEntity[]> {
   const raw = await fetchJSON('/gods');
   const normalized = normalizeToArray<BaseEntity>(raw);
-  console.log('[greekApi] /gods raw =>', raw);
-  console.log('[greekApi] /gods normalized length=', normalized.length);
   
   // Adiciona as URLs das imagens locais
-  const result = normalized.map(god => {
-    const image = getGodImage(god.name);
+  return normalized.map(god => {
+    const localImage = getGodImage(god.name);
     return {
       ...god,
-      image
+      image: localImage || god.image
     };
   });
-  
-  return result;
 }
 
 export async function getHeroes(): Promise<BaseEntity[]> {
   const raw = await fetchJSON('/heroes');
   const normalized = normalizeToArray<BaseEntity>(raw);
-  console.log('[greekApi] /heroes raw =>', raw);
-  console.log('[greekApi] /heroes normalized length=', normalized.length);
   
   // Adiciona as URLs das imagens locais
-  return normalized.map(hero => ({
-    ...hero,
-    image: getHeroImage(hero.name)
-  }));
+  return normalized.map(hero => {
+    const localImage = getHeroImage(hero.name);
+    return {
+      ...hero,
+      image: localImage || hero.image
+    };
+  });
 }
 
 /**
@@ -97,8 +95,6 @@ export async function getOlympianGods(): Promise<BaseEntity[]> {
     const normalizedAbode = abode.toLowerCase();
     return normalizedAbode.includes('mount olympus') || normalizedAbode.includes('olympus');
   });
-  
-  console.log(`[greekApi] Deuses Olímpicos encontrados: ${olympians.length}`);
   
   return olympians;
 }
