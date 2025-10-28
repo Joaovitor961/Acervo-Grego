@@ -1,4 +1,5 @@
 import { type BaseEntity } from '../types/myth';
+import { getGodImage, getHeroImage } from '../utils/imageHelper';
 
 const BASE = 'https://thegreekmythapi.vercel.app/api';
 
@@ -55,7 +56,17 @@ export async function getGods(): Promise<BaseEntity[]> {
   const normalized = normalizeToArray<BaseEntity>(raw);
   console.log('[greekApi] /gods raw =>', raw);
   console.log('[greekApi] /gods normalized length=', normalized.length);
-  return normalized;
+  
+  // Adiciona as URLs das imagens locais
+  const result = normalized.map(god => {
+    const image = getGodImage(god.name);
+    return {
+      ...god,
+      image
+    };
+  });
+  
+  return result;
 }
 
 export async function getHeroes(): Promise<BaseEntity[]> {
@@ -63,7 +74,12 @@ export async function getHeroes(): Promise<BaseEntity[]> {
   const normalized = normalizeToArray<BaseEntity>(raw);
   console.log('[greekApi] /heroes raw =>', raw);
   console.log('[greekApi] /heroes normalized length=', normalized.length);
-  return normalized;
+  
+  // Adiciona as URLs das imagens locais
+  return normalized.map(hero => ({
+    ...hero,
+    image: getHeroImage(hero.name)
+  }));
 }
 
 /* Helpers para busca local */
