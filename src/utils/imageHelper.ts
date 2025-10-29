@@ -26,7 +26,6 @@ function normalizeName(name: string): string {
  */
 export function getGodImage(name: string): string | undefined {
   const normalizedName = normalizeName(name);
-  
   // Tenta encontrar a imagem em qualquer formato
   const extensions = ['webp', 'png', 'jpg', 'jpeg'];
   
@@ -60,3 +59,4 @@ export function getHeroImage(name: string): string | undefined {
   
   return undefined;
 }
+
